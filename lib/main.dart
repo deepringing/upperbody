@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:upper/pages/Login.dart';
+import 'package:upper/pages/Signup.dart';
 
 Future main() async { //Splash 화면 나타나게 하는 코드!!
   WidgetsFlutterBinding.ensureInitialized(); // 초기화 보장

@@ -39,13 +39,49 @@ class _MainPageState extends State<MainPage> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top:19.0),
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 0, // 그림자 퍼지는 정도
+                                  blurRadius: 10, // 그림자의 흐림 정도
+                                  offset: Offset(0, 0),
+                                ),
+                              ],
+                              color: Colors.white,
+                            ),
+                            height: 61,
+                            width: 350,
+                          ),
+                          CircleAvatar(
+                            radius: 50,
+                            backgroundImage: AssetImage(''),
+                          )
+                        ],
+                      ),
+
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top:24.0),
                       child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.black,
-                        ),
                         height: 61,
                         width: 350,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 0,                      // 그림자 퍼지는 정도
+                              blurRadius: 10,                        // 그림자의 흐림 정도
+                              offset: Offset(0, 0),
+                            ),
+                          ],
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Padding(
@@ -55,18 +91,15 @@ class _MainPageState extends State<MainPage> {
                         width: 350,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top:24.0),
-                      child: Container(
-                        height: 61,
-                        width: 350,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.black,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 0,                      // 그림자 퍼지는 정도
+                              blurRadius: 10,                        // 그림자의 흐림 정도
+                              offset: Offset(0, 0),
+                            ),
+                          ],
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -90,7 +123,15 @@ class _MainPageState extends State<MainPage> {
                       width: 350,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.black,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 0,                      // 그림자 퍼지는 정도
+                            blurRadius: 10,                        // 그림자의 흐림 정도
+                            offset: Offset(0, 0),
+                          ),
+                        ],
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -101,7 +142,15 @@ class _MainPageState extends State<MainPage> {
                       width: 350,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.black,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 0,                      // 그림자 퍼지는 정도
+                            blurRadius: 10,                        // 그림자의 흐림 정도
+                            offset: Offset(0, 0),
+                          ),
+                        ],
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -112,7 +161,15 @@ class _MainPageState extends State<MainPage> {
                       width: 350,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.black,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 0,                      // 그림자 퍼지는 정도
+                            blurRadius: 10,                        // 그림자의 흐림 정도
+                            offset: Offset(0, 0),
+                          ),
+                        ],
+                        color: Colors.white,
                       ),
                     ),
                   ),
