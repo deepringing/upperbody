@@ -1,21 +1,35 @@
 import 'package:flutter/material.dart';
-import 'Main.dart';
+import 'package:upper/pages/signup/setcategory.dart';
+import '../Main.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final emailController = TextEditingController();
-  final nicknameController = TextEditingController();
-  final passwordController = TextEditingController();
-  final checkpasswordController = TextEditingController();
+class InputData {
+  static User? inputData;
+}
+
+class _SignupPageState extends State<SignupPage> {
+  InputData inputData = InputData();
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController nicknameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController checkpasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    String nickname = nicknameController.text;
+    String password = passwordController.text;
+    String email = emailController.text;
+
+    User user = User(email : email, nickname: nickname, password: password);
+    InputData.inputData = user;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -68,6 +82,40 @@ class _LoginPageState extends State<LoginPage> {
                           controller: emailController,
                           decoration: InputDecoration(
                             hintText: '이메일을 입력해주세요.',
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: Color(0xff6A6A6A), width: 0.7),
+                                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: Color(0xff6A6A6A), width: 0.7),
+                                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                            filled: true,
+                            fillColor: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 25.0, bottom: 12.0),
+                  child: Text(
+                    '닉네임',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        width: 360,
+                        height: 48,
+                        child: TextField(
+                          controller: nicknameController,
+                          decoration: InputDecoration(
+                            hintText: '닉네임을 입력해주세요.',
                             enabledBorder: OutlineInputBorder(
                                 borderSide:
                                 BorderSide(color: Color(0xff6A6A6A), width: 0.7),
@@ -165,10 +213,18 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.only(top: 54.0),
                     child: ElevatedButton(
                       onPressed: () {
+                        setState(() {
+                          nickname;
+                          email;
+                          password;
+                        });
+                        print(email);
+                        print(nickname);
+                        print(password);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MainPage()),
+                              builder: (context) => setCategoryPage()),
                         );
                       },
                       child: Text(
@@ -192,4 +248,12 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+class User {
+  final String email;
+  final String nickname;
+  final String password;
+
+  User({required this.email, required this.nickname, required this.password});
 }
