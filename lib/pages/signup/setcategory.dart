@@ -56,7 +56,8 @@ class _SetCategoryPageState extends State<setCategoryPage> {
         // 추가적인 동작 수행 가능
       } else {
         // 회원가입 실패
-        print('회원가입에 실패하였습니다. 상태 코드: ${response.statusCode}');
+        print('회원가입 성공임. 상태 코드: ${response.statusCode}');
+        print('응답 본문: ${response.body}');
         // 실패 이유에 따라 처리
       }
 
@@ -96,6 +97,31 @@ class _SetCategoryPageState extends State<setCategoryPage> {
       // 예외가 발생한 경우에 대한 처리를 추가할 수 있습니다.
       print('오류 발생: $e');
     }
+  }
+
+  Future<void> addcategoryname(String name) async {
+    var url = Uri.parse('http://localhost:3000/group');
+    var body = {
+      'name' : name,
+      'domain': 'string',
+      'type': categorytype,
+    };
+    Map<String,String> header = {'Content-Type': 'application/json'};
+
+    try {
+      var response = await http.post(url, body: jsonEncode(body), headers: header);
+
+      if (response.statusCode == 200) {
+        print("생성 성공");
+      }
+      else {
+        print('생성 실패 : ${response.statusCode}');
+        print('응답 본문: ${response.body}');
+      }
+    }catch(e) {
+      print('생성 실패 : $e');
+    }
+
   }
 
   @override
@@ -161,7 +187,7 @@ class _SetCategoryPageState extends State<setCategoryPage> {
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      categorytype = "middle_school";
+                                      categorytype = "MIDDLE_SCHOOL";
                                       category = "중학교";
                                     });
                                   },
@@ -183,7 +209,7 @@ class _SetCategoryPageState extends State<setCategoryPage> {
                                     ),
                                     onPressed: () {
                                       setState(() {
-                                        categorytype = "high_school";
+                                        categorytype = "HIGH_SCHOOL";
                                         category = "고등학교";
                                       });
                                     },
@@ -206,7 +232,7 @@ class _SetCategoryPageState extends State<setCategoryPage> {
                                     ),
                                     onPressed: () {
                                       setState(() {
-                                        categorytype = "university";
+                                        categorytype = "UNIVERSITY";
                                         category = "대학교";
                                       });
                                     },
@@ -238,7 +264,7 @@ class _SetCategoryPageState extends State<setCategoryPage> {
                             ),
                             onPressed: () {
                               setState(() {
-                                categorytype = "company";
+                                categorytype = "COMPANY";
                                 category = "회사";
                               });
                             },
@@ -261,7 +287,7 @@ class _SetCategoryPageState extends State<setCategoryPage> {
                             onPressed: () {
                               setState(() {
                                 category = "해외취업";
-                                categorytype = "overseas_employment";
+                                categorytype = "OVERSEAS_EMPLOYMENT";
                               });
                             },
                             child: Text(
@@ -282,7 +308,7 @@ class _SetCategoryPageState extends State<setCategoryPage> {
                             ),
                             onPressed: () {
                               setState(() {
-                                categorytype = "etc";
+                                categorytype = "ETC";
                                 category = "";
                               });
                             },
@@ -331,6 +357,7 @@ class _SetCategoryPageState extends State<setCategoryPage> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
+                                      addcategoryname(categorynameController.text);
                                       // 플러스 아이콘을 눌렀을 때 수행할 동작을 추가합니다.
                                     },
                                     child: Icon(
