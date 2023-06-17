@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upper/pages/Loginpage.dart';
 import 'package:upper/pages/signup/setcategory.dart';
 import '../Main.dart';
 
@@ -224,7 +225,7 @@ class _SignupPageState extends State<SignupPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => setCategoryPage()),
+                              builder: (context) => LoginPage()),
                         );
                       },
                       child: Text(
