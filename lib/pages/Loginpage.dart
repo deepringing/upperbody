@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:upper/pages/signup/Signup.dart';
 
 import 'Main.dart';
 
@@ -12,10 +13,15 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
+class InputData {
+  static Token? inputData;
+}
+
 class _LoginPageState extends State<LoginPage> {
+  InputData inputData = InputData();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  String token = "";
+  String accesstoken = "";
 
   Future<void> Login(email, password) async {
     var url = Uri.parse('http://localhost:3000/auth');
@@ -36,12 +42,15 @@ class _LoginPageState extends State<LoginPage> {
         // 회원가입 실패
         print('로그인 성공 BUT ${response.statusCode}');
         print('응답 본문: ${response.body}');
-        token = response.body;
+        setState(() {
+          accesstoken = response.body;
+        });
+        Token token = Token(token : accesstoken);
+        InputData.inputData = token;
         // 실패 이유에 따라 처리
       }
 
     }catch(e) {
-
     }
   }
 
@@ -216,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                   );
                 },
                 child: Text(
-                  "확인",
+                  "로그인",
                   style: TextStyle(color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
@@ -228,9 +237,29 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SignupPage(
+                        )),
+                  );
+                },
+                child: Text('처음이신가요?'),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+class Token {
+  final String token;
+
+  Token({required this.token});
 }
