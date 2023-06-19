@@ -3,8 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:upper/pages/signup/Signup.dart';
-
 import 'Main.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,17 +13,18 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class InputData {
-  static Token? inputData;
-}
-
 class _LoginPageState extends State<LoginPage> {
-  InputData inputData = InputData();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   String accesstoken = "";
 
   Future<void> Login(email, password) async {
+    await GetStorage.init();
+    final GetStorage storage = GetStorage();
+
+    print(email);
+    print(password);
+
     var url = Uri.parse('http://localhost:3000/auth');
     var body = {
       'email': email,       // 이메일
@@ -43,10 +44,11 @@ class _LoginPageState extends State<LoginPage> {
         print('로그인 성공 BUT ${response.statusCode}');
         print('응답 본문: ${response.body}');
         setState(() {
+          storage.write('token', response.body);
+        });
+        setState(() {
           accesstoken = response.body;
         });
-        Token token = Token(token : accesstoken);
-        InputData.inputData = token;
         // 실패 이유에 따라 처리
       }
 
@@ -256,10 +258,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-}
-
-class Token {
-  final String token;
-
-  Token({required this.token});
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:upper/pages/Loginpage.dart';
 import '../Main.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +14,7 @@ class setCategoryPage extends StatefulWidget {
 }
 
 class _SetCategoryPageState extends State<setCategoryPage> {
-  User? inputData = InputData.inputData;
+  User? iinputData = InputData.inputData;
   int length = 0;
   String id = "0";
   bool showContainer = false;
@@ -25,9 +26,9 @@ class _SetCategoryPageState extends State<setCategoryPage> {
   List<Map<String,dynamic>> _backendData = [];
 
   Future<void> Signup() async {
-    String nickname = inputData?.nickname ?? "";
-    String password = inputData?.password ?? "";
-    String email = inputData?.email ?? "";
+    String nickname = iinputData?.nickname ?? "";
+    String password = iinputData?.password ?? "";
+    String email = iinputData?.email ?? "";
     var subid = int.tryParse(id);
     print(subid);
     print(subid.runtimeType);
@@ -408,7 +409,7 @@ class _SetCategoryPageState extends State<setCategoryPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => setCategoryPage()),
+                              builder: (context) => LoginPage()),
                         );
                       },
                       child: Text(
