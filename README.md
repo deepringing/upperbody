@@ -1,16 +1,1 @@
-# upper
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img width="675" alt="스크린샷 2023-06-19 오후 12 27 18" src="https://github.com/deepringing/upperbody/assets/103014831/10fb1247-0267-4776-be94-03ca992bd2f9">
