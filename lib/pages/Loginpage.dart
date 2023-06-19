@@ -22,9 +22,6 @@ class _LoginPageState extends State<LoginPage> {
     await GetStorage.init();
     final GetStorage storage = GetStorage();
 
-    print(email);
-    print(password);
-
     var url = Uri.parse('http://localhost:3000/auth');
     var body = {
       'email': email,       // 이메일

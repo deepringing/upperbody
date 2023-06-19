@@ -30,9 +30,6 @@ class _SetCategoryPageState extends State<setCategoryPage> {
     String password = iinputData?.password ?? "";
     String email = iinputData?.email ?? "";
     var subid = int.tryParse(id);
-    print(subid);
-    print(subid.runtimeType);
-    print(id.runtimeType);
     // int idnum = int.parse(id);
 
     var url = Uri.parse('http://localhost:3000/user');
@@ -46,10 +43,6 @@ class _SetCategoryPageState extends State<setCategoryPage> {
 
     try {
       var response = await http.post(url, body: jsonEncode(body), headers: header); // POST 요청 보내기
-      print(nickname);
-      print(email);
-      print(password);
-      print(id);
 
       if (response.statusCode == 200) {
         // 회원가입 성공
