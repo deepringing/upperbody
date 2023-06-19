@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:upper/pages/ChatlistPage.dart';
 import 'package:upper/pages/DetailPage.dart';
 import 'package:upper/pages/BottomNavigation.dart';
 import 'package:upper/pages/ProfilePage.dart';
@@ -18,6 +19,7 @@ class _MainPageState extends State<myMainPage> {
 
   final List<Widget> _pages = [
     MainPage(),
+    chatlistpage(),
     searchpage(),
     profilepage(),
   ];
@@ -33,8 +35,9 @@ class _MainPageState extends State<myMainPage> {
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
         // 선택된 아이템 색상 설정
-        selectedItemColor: Color(0xff738D56),
+        selectedItemColor: Color(0xff7591F7),
         // 선택되지 않은 아이템 색상 설정
         unselectedItemColor: Color(0xff929292),
         currentIndex: _selectedIndex,
@@ -45,8 +48,12 @@ class _MainPageState extends State<myMainPage> {
             label: '홈',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            label: '이상형 찾기',
+            icon: Icon(Icons.chat),
+            label: '채팅',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: '검색',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline_outlined),
