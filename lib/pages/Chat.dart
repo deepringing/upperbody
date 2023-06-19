@@ -1,22 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:upper/pages/DetailPage.dart';
-import 'package:http/http.dart' as http;
 
 import 'SampleData.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class ChatPage extends StatefulWidget {
+  const ChatPage({Key? key}) : super(key: key);
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  List<Map<String, dynamic>> _backendData = [];
-
+class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -72,10 +67,11 @@ class _MainPageState extends State<MainPage> {
             child: ListView(
               shrinkWrap: true,
               children: List.generate(
-                SampleData.samples.length,
+                SampleData.samples.length.bitLength,
                 (index) => InkWell(
                   onTap: () {
-                    print('click -> $index : ');
+                    print(
+                        'click -> $index : ${SampleData.samples[index].name}');
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return DetailPage(SampleData.samples[index]);
@@ -83,51 +79,21 @@ class _MainPageState extends State<MainPage> {
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 25, right: 25),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                  SampleData.samples[index].imageAddress,
-                                  height: 50),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(SampleData.samples[index].name),
-                              const SizedBox(
-                                width: 100,
-                              ),
-                              Container(
-                                width: 115,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: const Color(0xff7591F7),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "${SampleData.samples[index].schoolName} 재학 중",
-                                    style: const TextStyle(
-                                        fontSize: 10, color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Row(
+                          children: [
+                            Image.asset(SampleData.samples[index].imageAddress,
+                                height: 50),
+                            const SizedBox(
+                              width: 40,
+                            ),
+                            Text(SampleData.samples[index].name),
+                            Text(SampleData.samples[index].schoolName),
+                          ],
                         ),
                       ),
                     ),
