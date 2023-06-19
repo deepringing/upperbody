@@ -2,17 +2,63 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:upper/pages/DetailPage.dart';
 import 'package:upper/pages/BottomNavigation.dart';
-
+import 'package:upper/pages/ProfilePage.dart';
+import 'package:upper/pages/SearchPage.dart';
 import 'SampleData.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class myMainPage extends StatefulWidget {
+  const myMainPage({Key? key}) : super(key: key);
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<myMainPage> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _pages = [
+    MainPage(),
+    searchpage(),
+    profilepage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        // 선택된 아이템 색상 설정
+        selectedItemColor: Color(0xff738D56),
+        // 선택되지 않은 아이템 색상 설정
+        unselectedItemColor: Color(0xff929292),
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: '홈',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_border),
+            label: '이상형 찾기',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline_outlined),
+            label: '마이페이지',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -54,7 +100,6 @@ class _MainPageState extends State<MainPage> {
             buildCenter(context),
           ],
         ),
-        bottomNavigationBar: const BottomNavigation(),
       ),
     );
   }
@@ -74,10 +119,10 @@ class _MainPageState extends State<MainPage> {
                   onTap: () {
                     print(
                         'click -> $index : ${SampleData.samples[index].name}');
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return DetailPage(SampleData.samples[index]);
-                    }));
+                    //Navigator.push(context,
+                    //   MaterialPageRoute(builder: (context) {
+                    //   return DetailPage(SampleData.samples[index]);
+                    //}));
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 25, right: 25),
