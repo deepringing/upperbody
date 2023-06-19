@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:upper/pages/SearchDetail.dart';
+import 'package:get_storage/get_storage.dart';
 
 class searchpage extends StatefulWidget {
   const searchpage({Key? key}) : super(key: key);
@@ -14,6 +16,16 @@ class _SearchPageState extends State<searchpage> {
   bool showContainer = false;
   List<Map<String, dynamic>> _backendData = [];
   int length = 0;
+
+  Future<void> inputname(name, idnumber) async {
+    await GetStorage.init();
+    final GetStorage storage = GetStorage();
+
+    setState(() {
+      storage.write('name', name);
+      storage.write('id', idnumber);
+    });
+  }
 
   Future<void> searchname(String name) async {
     try {
@@ -178,14 +190,31 @@ class _SearchPageState extends State<searchpage> {
         padding: const EdgeInsets.only(top: 30.0),
         child: SizedBox(
             width: 360,
-            height: 30,
-            child: Container(
-              child: Center(
-                child: Text(
-                  '$name',
-                  style: TextStyle(color: Colors.black, fontSize: 18),
+            height: 52,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Color(0xffA6A6A6), // 테두리 색상
+                    width: 1.0, // 테두리 너비
+                  ),
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
-              ),
-            )));
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextButton(
+                    onPressed: () {
+                      inputname(name, idnumber);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => searchdetailpage(
+                            )),
+                      );
+                    },
+                    child: Text('$name',
+                    style: TextStyle(color: Colors.black, fontSize: 13),),
+                  ),
+                ),
+              )));
   }
 }

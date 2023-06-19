@@ -1,25 +1,27 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:upper/pages/ChatlistPage.dart';
+import 'package:upper/pages/Chat.dart';
 import 'package:upper/pages/DetailPage.dart';
-import 'package:upper/pages/BottomNavigation.dart';
-import 'package:upper/pages/ProfilePage.dart';
-import 'package:upper/pages/SearchPage.dart';
+import 'package:http/http.dart' as http;
+import 'ProfilePage.dart';
 import 'SampleData.dart';
+import 'SearchPage.dart';
 
-class myMainPage extends StatefulWidget {
-  const myMainPage({Key? key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
 
   @override
-  _MainPageState createState() => _MainPageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<myMainPage> {
+class _MainPageState extends State<MainPage> {
+  List<Map<String, dynamic>> _backendData = [];
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    MainPage(),
-    chatlistpage(),
+    myMainPage(),
+    ChatPage(),
     searchpage(),
     profilepage(),
   ];
@@ -65,7 +67,7 @@ class _MainPageState extends State<myMainPage> {
   }
 }
 
-class MainPage extends StatelessWidget {
+class myMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -77,9 +79,9 @@ class MainPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.only(top: 67, left: 30),
+              padding: EdgeInsets.only(top: 60, left: 30),
               child: Text(
-                "안녕하세요. 가나다은님, \n졸업선배님께 조언을 받아보아요.", // 인삿말
+                "안녕하세요. 박다은님, \n졸업선배님께 조언을 받아보아요.", // 인삿말
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.normal), //TODO : fontWeight normal
@@ -121,33 +123,62 @@ class MainPage extends StatelessWidget {
             child: ListView(
               shrinkWrap: true,
               children: List.generate(
-                SampleData.samples.length.bitLength,
+                SampleData.samples.length,
                 (index) => InkWell(
                   onTap: () {
-                    print(
-                        'click -> $index : ${SampleData.samples[index].name}');
-                    //Navigator.push(context,
-                    //   MaterialPageRoute(builder: (context) {
-                    //   return DetailPage(SampleData.samples[index]);
-                    //}));
+                    print('click -> $index : ');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return DetailPage(SampleData.samples[index]);
+                    }));
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 25, right: 25),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Row(
-                          children: [
-                            Image.asset(SampleData.samples[index].imageAddress,
-                                height: 50),
-                            const SizedBox(
-                              width: 40,
-                            ),
-                            Text(SampleData.samples[index].name),
-                            Text(SampleData.samples[index].schoolName),
-                          ],
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                  SampleData.samples[index].imageAddress,
+                                  height: 50),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(SampleData.samples[index].name),
+                              const SizedBox(
+                                width: 100,
+                              ),
+                              Container(
+                                width: 115,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: const Color(0xff7591F7),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "${SampleData.samples[index].schoolName} 재학 중",
+                                    style: const TextStyle(
+                                        fontSize: 10, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
