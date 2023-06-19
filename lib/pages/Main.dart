@@ -1,11 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:upper/pages/Chat.dart';
 import 'package:upper/pages/DetailPage.dart';
 import 'package:http/http.dart' as http;
-
+import 'ProfilePage.dart';
 import 'SampleData.dart';
+import 'SearchPage.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -16,7 +17,57 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   List<Map<String, dynamic>> _backendData = [];
+  int _selectedIndex = 0;
 
+  final List<Widget> _pages = [
+    myMainPage(),
+    ChatPage(),
+    searchpage(),
+    profilepage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        // 선택된 아이템 색상 설정
+        selectedItemColor: Color(0xff7591F7),
+        // 선택되지 않은 아이템 색상 설정
+        unselectedItemColor: Color(0xff929292),
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: '홈',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            label: '채팅',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: '검색',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline_outlined),
+            label: '마이페이지',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class myMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,9 +79,9 @@ class _MainPageState extends State<MainPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.only(top: 67, left: 30),
+              padding: EdgeInsets.only(top: 60, left: 30),
               child: Text(
-                "안녕하세요. 가나다은님, \n졸업선배님께 조언을 받아보아요.", // 인삿말
+                "안녕하세요. 박다은님, \n졸업선배님께 조언을 받아보아요.", // 인삿말
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.normal), //TODO : fontWeight normal
