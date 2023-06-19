@@ -215,9 +215,9 @@ class _SignupPageState extends State<SignupPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          nickname;
-                          email;
-                          password;
+                          nickname = nicknameController.text;
+                          email = emailController.text;
+                          password = passwordController.text;
                         });
                         print(email);
                         print(nickname);
